@@ -1,11 +1,11 @@
 //put into array?
 var question1 = "Who played Fezzik in 1987 The Princess Bride?";
 var question2 = "Which of the following players has a two handed backhand?";
-var question3 = "Who led Ash and Pikachu to a healer in 2019 movie detective Pikachu?";
+var question3 = "";
 
 var answer1 = "Andre the Giant";
 var answer2 = "Novak Djokovic";
-var answer3 = "Bulbasaur";
+var answer3 = "";
 
 
 
@@ -20,6 +20,13 @@ setInterval(function () {
 }, 1000);
 
 
+$(".class").click(function () {
+    if (this.value === 1) {//correct
+        console.log("correct!");
+    }
+});
+
+// if($(".question").on("click"))
 //if wrong answer or time up
     //wrongAnswers++
     //display wahVideo
