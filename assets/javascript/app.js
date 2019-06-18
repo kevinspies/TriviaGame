@@ -6,10 +6,20 @@ var answer1 = "Andre the Giant";
 var answer2 = "Novak Djokovic";
 var answer3 = "Bulbasaur";
 
+
+
+//-----------------------------one question loop-------------------------------
+
 var timeLeft = 20;
 
+while (timeLeft > -1) {
+    setInterval(function () {
+        $("#timeremaining").text("Time Remaining: " + timeLeft);
+        timeLeft--;
+    }, 1000);
+}
 
-setInterval(function () { $("#timeremaining").text("Time Remaining: " + timeLeft); timeLeft--; }, 1000);
+//-----------------------------one question loop-------------------------------
 
 
 
