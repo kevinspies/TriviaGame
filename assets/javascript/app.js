@@ -1,12 +1,7 @@
-//put into array?
-var question1 = "Who played Fezzik in 1987 The Princess Bride?";
-var question2 = "Which of the following players has a two handed backhand?";
-var question3 = "";
 
-var answer1 = "Andre the Giant";
-var answer2 = "Novak Djokovic";
-var answer3 = "";
-
+var set1 = ["Who played Fezzik in 1987 The Princess Bride?", "Andre the Giant", "Mike Wazowski", "Jennifer Lopez", "Michael Cera"];
+var set2 = ["Which of the following players has a two handed backhand?", "Roger Federer", "Novak Djokovic", "Stan Wawrinka", "Dominic Thiem"];
+var set3 = ["", "", "", ""];
 
 
 //-----------------------------one question loop-------------------------------
@@ -36,7 +31,8 @@ $(".class").click(function () {
 
 //-----------------------------one question loop-------------------------------
 
-
+//make a function that loads in a new set - of a question and 4 possible answers
+//so i'll probably wanna save each set in an array, likely
 
 
 //if selects correct answer
