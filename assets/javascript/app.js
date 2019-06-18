@@ -1,3 +1,4 @@
+//put into array?
 var question1 = "Who played Fezzik in 1987 The Princess Bride?";
 var question2 = "Which of the following players has a two handed backhand?";
 var question3 = "Who led Ash and Pikachu to a healer in 2019 movie detective Pikachu?";
@@ -9,15 +10,22 @@ var answer3 = "Bulbasaur";
 
 
 //-----------------------------one question loop-------------------------------
+// $("#question").text(have some smart adder in here that goes through the questions? array?)
 
 var timeLeft = 20;
 
-while (timeLeft > -1) {
-    setInterval(function () {
-        $("#timeremaining").text("Time Remaining: " + timeLeft);
-        timeLeft--;
-    }, 1000);
-}
+setInterval(function () {
+    $("#timeremaining").text("Time Remaining: " + timeLeft);
+    timeLeft--;
+}, 1000);
+
+
+//if wrong answer or time up
+    //wrongAnswers++
+    //display wahVideo
+    //new question screen
+
+
 
 //-----------------------------one question loop-------------------------------
 
