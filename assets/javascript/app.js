@@ -13,8 +13,11 @@ setInterval(function () {
 }, 1000);
 
 console.log("hey there");
-$(".answer").click(function () {
-    console.log(this.value);
+
+$("#answer1").on("click", console.log("click detected"));//not working?
+
+$(".answer").click(function () {//not working???
+    //console.log(this.value);
     console.log("hello there");
     if (this.value === set1.correct) {//correct
         console.log("correct!");
