@@ -4,14 +4,20 @@ var set2 = ["Which of the following players has a two handed backhand?", "Roger 
 var correctAnswers = ["Andre the Giant", "Novak Djokovic"];
 
 //-------------------------------one question loop-----------------------------------
-var timeLeft = 5;
+var timeLeft = 20;
 var timer = setInterval(tick, 1000);
+var nextQuestion;
 
 
 
 $(".answer").click(function () {
+    // console.log(this.value);
+    // var title = $(this).text;
+    // alert(title);
+    clearInterval(timer);
+
     $("#image-holder").html("<img src=" + "assets/images/ninjaWrong.png" + " width='400px'>");
-    setTimeout(rePopulate(set1), 2000);
+    nextQuestion = setTimeout(rePopulate, 2000);
 });
 
 //-----------------------------end of one question loop--------------------------------
@@ -25,12 +31,12 @@ function tick() {
         alert("Too slow!");
     }
 }
-function rePopulate(someArray) {
-    $("#question").attr(someArray[0]);
-    $("#answer1").text(someArray[1]);
-    $("#answer2").text(someArray[2]);
-    $("#answer3").text(someArray[3]);
-    $("#answer4").text(someArray[4]);
+function rePopulate() {
+    $("#question").attr(set1[0]);
+    $("#answer1").text(set1[1]);
+    $("#answer2").text(set1[2]);
+    $("#answer3").text(set1[3]);
+    $("#answer4").text(set1[4]);
 }
 
 function isCorrect(someAnswer) {
