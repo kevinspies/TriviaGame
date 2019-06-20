@@ -1,12 +1,22 @@
 #image-holder {
 
-      /* Positioning */
-      margin: 0 auto;
+/* Positioning */
+margin: 0 auto;
 
-      /* Box-model */
-      width: 400px;
+/* Box-model */
+width: 400px;
 
-      /* Typography */
-      text-align: center;
+/* Typography */
+text-align: center;
 
-    }
+}
+.container{
+/* Positioning */
+margin: 0 auto;
+
+/* Box-model */
+width: 400px;
+
+/* Typography */
+text-align: center;
+}
