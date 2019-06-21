@@ -27,11 +27,11 @@ $(".answer").click(function () {
     //or something to do with ID? this is definitely important. 
     //ok.. so i just did not realize how useful jquery was
 
-    var words = event.target.textContent;
+    var guess = event.target.textContent; //this represents the string of their guess
     console.log(typeof (words));//string, well that's good.
 
-    if (words === "green" || words === "black" || words === "white") {
-        console.log(event.target.textContent + " is correct!");
+    if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
+        console.log(event.target.textContent + " is incorrect!");
         $("#image-holder").html("<img src=" + "assets/images/ninjaWrong.png" + " width='400px'>");
         nextQuestion = setTimeout(rePopulate, 2000);
     }
