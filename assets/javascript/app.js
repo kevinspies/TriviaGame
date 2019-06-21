@@ -26,9 +26,13 @@ $(".answer").click(function () {
 
     if (event.target.textContent === "green" || event.target.textContent === "black" || event.target.textContent === "white") {
         console.log("no way!!");
+        console.log("i can also get text like this maybe.. let's find out! button text isss... " + $(".button").text() + "w0wz3rzLol0c0pt3r");
+        //no that did not work, is that because jquery ltext() method doesn't work with buttons?
+        //or something to do with ID? this is definitely important. 
         $("#image-holder").html("<img src=" + "assets/images/ninjaWrong.png" + " width='400px'>");
         nextQuestion = setTimeout(rePopulate, 2000);
     }
+    //else if correct, show right ninja, repopulate, etc, etc 
 
 
 });
