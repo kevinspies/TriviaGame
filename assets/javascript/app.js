@@ -3,17 +3,20 @@ var set2 = ["Which of the following players has a two handed backhand?", "Roger 
 
 var correctAnswers = ["Andre the Giant", "Novak Djokovic"];
 
-//-------------------------------one question loop-----------------------------------
 var timeLeft = 20;
 var timer = setInterval(tick, 1000);
 var nextQuestion;
 
-
 //wait this information should be global... this ticker reset function...
-if (tick.timeLeft === 0) {
-    console.log("whoops! all out of time! and in a proper question 1 logic?!");
-    nextQuestion = setTimeout(rePopulate, 2000);
-}
+
+function outOfTime() {
+    if (timeLeft === 0) {
+        console.log("whoops! all out of time!");
+        //here i could hard check to see which question i'm on by using jquery to check
+        nextQuestion = setTimeout(rePopulate, 2000);
+    }//okay i need to be able to see where i am in an array of questions so i can always call out of time
+}//no matter where i am, so this means i need to be able to say repopulate next question
+//do i need a game object then? 
 
 $(".answer").click(function () {
     // console.log(this.value);
@@ -38,7 +41,12 @@ $(".answer").click(function () {
     //question 1
     if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
         console.log(event.target.textContent + " is incorrect!");
-        $("#image-holder").html("<img src=" + "assets/images/ninjaWrong.png" + " width='400px'>");
+        $("#image-holder").html("<img src=" + "assets/images/nope.png" + " width='400px'>");
+        nextQuestion = setTimeout(rePopulate, 2000);
+    }
+    else if (guess === "yellow") {//correct guess
+        console.log(event.target.textContent + " is correct!");
+        $("#image-holder").html("<img src=" + "assets/images/yep.png" + " width='400px'>");//yep image
         nextQuestion = setTimeout(rePopulate, 2000);
     }
     else if (tick.timeLeft === 0) {
