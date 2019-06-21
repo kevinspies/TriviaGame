@@ -7,16 +7,57 @@ var timeLeft = 20;
 var timer = setInterval(tick, 1000);
 var nextQuestion;
 
-//wait this information should be global... this ticker reset function...
+
+function tick() {
+    timeLeft--;
+    $("#timeremaining").text("Time Remaining: " + timeLeft);
+    if (timeLeft === 0) {
+        clearInterval(timer);
+        // alert("Too slow!");
+        //next question
+        //this could be problematic, how does tick know which question it is on?
+    }
+}
+function repopulate(anySet) {
+    //whenever a new question comes in.. i need to start ticking down again
+    timeLeft = 20;
+    timer = setInterval(tick, 1000);
+    //remove wrong ninja here at the start of a new question
+    $("#image-holder").html("<img src=");
+
+    $("#question").attr(anySet[0]);
+    $("#answer1").text(anySet[1]);
+    $("#answer2").text(anySet[2]);
+    $("#answer3").text(anySet[3]);
+    $("#answer4").text(anySet[4]);
+}
 
 function outOfTime(specificIndex) {
     if (timeLeft === 0) {
         console.log("whoops! all out of time!");
         //here i could hard check to see which question i'm on by using jquery to check
-        nextQuestion = setTimeout(rePopulate(specificIndex), 2000);
+        nextQuestion = setTimeout(repopulate(specificIndex), 2000);
     }//okay i need to be able to see where i am in an array of questions so i can always call out of time
 }//no matter where i am, so this means i need to be able to say repopulate next question
-//do i need a game object then? 
+//do i need a game object then?
+
+//i shouldn't need multiple repopulate functions now that i'm passing anySet as a parameter i think..
+// function rePopulate2() {
+//     timeLeft = 20;
+//     timer = setInterval(tick, 1000);
+//     $("#image-holder").html("<img src=");
+//     $("#question").attr(set2[0]);
+//     $("#answer1").text(set2[1]);
+//     $("#answer2").text(set2[2]);
+//     $("#answer3").text(set2[3]);
+//     $("#answer4").text(set2[4]);
+// }
+
+function isCorrect(someAnswer) {
+    if (correctAnswers.includes(someAnswer)) return true;
+    else return false;
+}
+
 
 $(".answer").click(function () {
     // console.log(this.value);
@@ -36,68 +77,26 @@ $(".answer").click(function () {
 
     //question 1
     if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
-        console.log(event.target.textContent + " is incorrect!");
+        console.log(guess + " is incorrect!");
         $("#image-holder").html("<img src=" + "assets/images/nope.png" + " width='400px'>");
-        nextQuestion = setTimeout(rePopulate, 2000);
+        nextQuestion = setTimeout(repopulate(set1), 2000);
     }
     else if (guess === "yellow") {//correct guess
-        console.log(event.target.textContent + " is correct!");
+        console.log(guess + " is correct!");
         $("#image-holder").html("<img src=" + "assets/images/yep.png" + " width='400px'>");//yep image
-        nextQuestion = setTimeout(rePopulate, 2000);
+        nextQuestion = setTimeout(repopulate(set1), 2000);
     }
-    else if (tick.timeLeft === 0) {
+    else if (timeLeft === 0) {
         console.log("whoops! all out of time! and in a proper question 1 logic?!");
-        nextQuestion = setTimeout(rePopulate, 2000);
+        nextQuestion = setTimeout(repopulate(set1), 2000);
     }
 
     //question 2
     if (guess === "Mike Wazowski" || guess === "Jennifer Lopez" || guess === "Michael Cera") {
         $("#image-holder").html("<img src=" + "assets/images/zapdos.jpg" + " width='400px'>");
-        nextQuestion = setTimeout(rePopulate2, 2000);
+        nextQuestion = setTimeout(repopulate2, 2000);
     }
     //else if correct, show right ninja, repopulate, etc, etc 
 
 
 });
-
-
-function tick() {
-    timeLeft--;
-    $("#timeremaining").text("Time Remaining: " + timeLeft);
-    if (timeLeft === 0) {
-        clearInterval(timer);
-        // alert("Too slow!");
-        //next question
-        //this could be problematic, how does tick know which question it is on?
-    }
-}
-function rePopulate(anySet) {
-    //whenever a new question comes in.. i need to start ticking down again
-    timeLeft = 20;
-    timer = setInterval(tick, 1000);
-    //remove wrong ninja here at the start of a new question
-    $("#image-holder").html("<img src=");
-
-    $("#question").attr(anySet[0]);
-    $("#answer1").text(anySet[1]);
-    $("#answer2").text(anySet[2]);
-    $("#answer3").text(anySet[3]);
-    $("#answer4").text(anySet[4]);
-}
-
-//i shouldn't need multiple repopulate functions now that i'm passing anySet as a parameter i think..
-// function rePopulate2() {
-//     timeLeft = 20;
-//     timer = setInterval(tick, 1000);
-//     $("#image-holder").html("<img src=");
-//     $("#question").attr(set2[0]);
-//     $("#answer1").text(set2[1]);
-//     $("#answer2").text(set2[2]);
-//     $("#answer3").text(set2[3]);
-//     $("#answer4").text(set2[4]);
-// }
-
-function isCorrect(someAnswer) {
-    if (correctAnswers.includes(someAnswer)) return true;
-    else return false;
-}
