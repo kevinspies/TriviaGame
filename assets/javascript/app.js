@@ -16,8 +16,21 @@ $(".answer").click(function () {
     // alert(title);
     clearInterval(timer);
 
-    $("#image-holder").html("<img src=" + "assets/images/ninjaWrong.png" + " width='400px'>");
-    nextQuestion = setTimeout(rePopulate, 2000);
+
+
+
+
+    //sooo event returns a DOM element... so we use dom methods? and kinda works like this
+    //inside an event
+    console.log(event.target.textContent);
+
+    if (event.target.textContent === "green" || event.target.textContent === "black" || event.target.textContent === "white") {
+        console.log("no way!!");
+        $("#image-holder").html("<img src=" + "assets/images/ninjaWrong.png" + " width='400px'>");
+        nextQuestion = setTimeout(rePopulate, 2000);
+    }
+
+
 });
 
 //-----------------------------end of one question loop--------------------------------
@@ -32,6 +45,7 @@ function tick() {
     }
 }
 function rePopulate() {
+    //remove wrong ninja here at the start of a new question
     $("#question").attr(set1[0]);
     $("#answer1").text(set1[1]);
     $("#answer2").text(set1[2]);
