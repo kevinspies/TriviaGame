@@ -58,6 +58,9 @@ function tick() {
     }
 }
 function rePopulate() {
+    //whenever a new question comes in.. i need to start ticking down again
+    timeLeft = 20;
+    timer = setInterval(tick, 1000);
     //remove wrong ninja here at the start of a new question
     $("#question").attr(set1[0]);
     $("#answer1").text(set1[1]);
