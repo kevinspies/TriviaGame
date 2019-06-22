@@ -58,7 +58,6 @@ function isCorrect(someAnswer) {
     else return false;
 }
 
-
 $(".answer").click(function () {
     // console.log(this.value);
     // var title = $(this).text;
@@ -78,23 +77,25 @@ $(".answer").click(function () {
     //question 1 - the first repopulation of the 99th colony centurian 6
     if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
         console.log(guess + " is incorrect!");
+        nextQuestion = setTimeout(repopulate(set1), 3000);
         $("#image-holder").html("<img src= 'assets/images/nope.jpg' width='400px'>");//wow, this felt good to do properly lol
-        nextQuestion = setTimeout(repopulate(set1), 3000);
+        console.log(nextQuestion + " is the next question and will appear in 3 seconds!");
     }
-    else if (guess === "yellow") {//correct guess
+    if (guess === "yellow") {//correct guess
         console.log(guess + " is correct!");
-        $("#image-holder").html("<img src=" + "assets/images/yep.jpg" + " width='400px'>");//yep image
+        $("#image-holder").html("<img src= 'assets/images/yep.jpg' width='400px'>");//yep image
         nextQuestion = setTimeout(repopulate(set1), 3000);
     }
-    else if (timeLeft === 0) {
-        console.log("whoops! all out of time! and in a proper question 1 logic?!");
-        $("#image-holder").html("<img src=" + "assets/images/nope.jpg" + " width='400px'>");
+    if (timeLeft === 0) {
+        console.log("whoops! all out of time");
+        $("#image-holder").html("<img src=" + "assets/images/nope.jpg" + " width='400px'>");//why isn't image showing up?
         nextQuestion = setTimeout(repopulate(set1), 3000);
+        console.log("pssssst");
     }
 
     //question 2
     if (guess === "Mike Wazowski" || guess === "Jennifer Lopez" || guess === "Michael Cera") {
-        $("#image-holder").html("<img src=" + "assets/images/zapdos.jpg" + " width='400px'>");
+        $("#image-holder").html("<img src= 'assets/images/nope.jpg' width='400px'>");
         nextQuestion = setTimeout(repopulate(set2), 3000);
     }
     //else if correct, show right ninja, repopulate, etc, etc 
