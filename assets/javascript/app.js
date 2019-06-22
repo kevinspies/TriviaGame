@@ -1,11 +1,15 @@
 var set1 = ["Who played Fezzik in 1987 The Princess Bride?", "Andre the Giant", "Mike Wazowski", "Jennifer Lopez", "Michael Cera"];
 var set2 = ["Which of the following players has a two handed backhand?", "Roger Federer", "Novak Djokovic", "Stan Wawrinka", "Dominic Thiem"];
+var set3 = ["what is 3 + 5?", "5", "1", "8", "boundless creativity"];
+var set4 = ["In what year did coldplay put out their first album?", "the right year", "wrong", "wrong", "wrong"];
 
 var correctAnswers = ["Andre the Giant", "Novak Djokovic"];
 
 var timeLeft = 20;
 var timer = setInterval(tick, 1000);
 var nextQuestion;
+var yep = "<div> id='image-holder'><img src= 'assets/images/check.png' width='400px'></div>";
+var nope = "<div> id='image-holder'><img src= 'assets/images/ex.jfif' width='400px'></div>"
 
 
 function tick() {
@@ -13,10 +17,13 @@ function tick() {
     $("#timeremaining").text("Time Remaining: " + timeLeft);
     if (timeLeft === 0) {
         clearInterval(timer);
+        nextQuestion = setTimeout(repopulate(set3), 3000);
+        $("#image-holder").html(nope);
         // alert("Too slow!");
         //next question
         //this could be problematic, how does tick know which question it is on?
     }
+
 }
 function repopulate(anySet) {
     //whenever a new question comes in.. i need to start ticking down again
@@ -25,7 +32,7 @@ function repopulate(anySet) {
     //remove wrong or right sign at the start of a new question
     $("#image-holder").html("<div id='image-holder'></div>");
 
-    $("#question").attr(anySet[0]);
+    $("#question").text(anySet[0]);
     $("#answer1").text(anySet[1]);
     $("#answer2").text(anySet[2]);
     $("#answer3").text(anySet[3]);
@@ -76,29 +83,48 @@ $(".answer").click(function () {
 
     //question 1 - the first repopulation of the 99th colony centurian 6
     if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
-        console.log(guess + " is incorrect!");
         nextQuestion = setTimeout(repopulate(set1), 3000);
-        $("#image-holder").html("<div> id='image-holder'><img src= 'assets/images/nope.jpg' width='400px'></div>");//wow, this felt good to do properly lol
+        $("#image-holder").html(nope);//wow, this felt good to do properly lol
         console.log(nextQuestion + " is the next question and will appear in 3 seconds!");
     }
     if (guess === "yellow") {//correct guess
-        console.log(guess + " is correct!");
         nextQuestion = setTimeout(repopulate(set1), 3000);
-        $("#image-holder").html("<div> id='image-holder'><img src= 'assets/images/yep.jpg' width='400px'></div>");//yep image
+        $("#image-holder").html(yep);//yep image
     }
     if (timeLeft === 0) {
-        console.log("whoops! all out of time");
         nextQuestion = setTimeout(repopulate(set1), 3000);
-        $("#image-holder").html("<div> id='image-holder'><img src= assets/images/nope.jpg' width='400px'></div>");//why isn't image showing up?
+        $("#image-holder").html(nope);//why isn't image showing up?
         console.log("pssssst");//because order matters------------------------------------------
     }
 
     //question 2
     if (guess === "Mike Wazowski" || guess === "Jennifer Lopez" || guess === "Michael Cera") {
-        $("#image-holder").html("<img src= 'assets/images/nope.jpg' width='400px'>");
         nextQuestion = setTimeout(repopulate(set2), 3000);
+        $("#image-holder").html(nope);
     }
     //else if correct, show right ninja, repopulate, etc, etc 
-
+    if (guess === "Andre the Giant") {//correct guess
+        nextQuestion = setTimeout(repopulate(set2), 3000);
+        $("#image-holder").html(yep);//yep image
+    }
+    if (timeLeft === 0) {
+        nextQuestion = setTimeout(repopulate(set2), 3000);
+        $("#image-holder").html(nope);//why isn't image showing up?
+        console.log("pssssst");//because order matters------------------------------------------
+    }
+    //3
+    if (guess === "Roger Federer" || guess === "Stan Wawrinka" || guess === "Dominic Thiem") {
+        nextQuestion = setTimeout(repopulate(set3), 3000);
+        $("#image-holder").html(nope);
+    }
+    if (guess === "Novak Djokovic") {//correct guess
+        nextQuestion = setTimeout(repopulate(set3), 3000);
+        $("#image-holder").html(yep);//yep image
+    }
+    if (timeLeft === 0) {
+        nextQuestion = setTimeout(repopulate(set3), 3000);
+        $("#image-holder").html(nope);
+        console.log("pssssst");
+    }
 
 });
