@@ -8,10 +8,19 @@ var correctAnswers = ["Andre the Giant", "Novak Djokovic"];
 var timeLeft = 20;
 var timer = setInterval(tick, 1000);
 var nextQuestion;
-var yep = "<div> id='image-holder'><img src= 'assets/images/check.png' width='400px'></div>";
-var nope = "<div> id='image-holder'><img src= 'assets/images/ex.jfif' width='400px'></div>";
+var yep = "<div id='image-holder'><img src= 'assets/images/check.png' width='400px'></div>";
+var nope = "<div id='image-holder'><img src= 'assets/images/ex.jfif' width='400px'></div>";
 var score = 0;
 
+function gameOver() {
+    $("#score").text("score: " + score + "/5");
+    $("#timeremaining").text("");
+    $("#question").text("");
+    $(".answer").text("");
+    $("#image-holder").html("<div id='image-holder'><img src= 'assets/images/gameover.jpg' width='400px'></div>");
+    // setTimeout(repopulate(set1), 5000); why is the timeout not working?
+
+}
 
 function tick() {
     timeLeft--;
@@ -83,12 +92,13 @@ $(".answer").click(function () {
     console.log(typeof (guess) + " is the type of guess");//string, well that's good.
 
     //question 1 - the first repopulation of the 99th colony centurian 6
-    if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
+    if (guess === "green" || guess === "neon" || guess === "gold") {//then they guessed wrong
         nextQuestion = setTimeout(repopulate(set1), 3000);
         $("#image-holder").html(nope);//wow, this felt good to do properly lol
         console.log(nextQuestion + " is the next question and will appear in 3 seconds!");
     }
-    if (guess === "yellow") {//correct guess
+    if (guess === "blue") {//correct guess
+        score++;
         nextQuestion = setTimeout(repopulate(set1), 3000);
         $("#image-holder").html(yep);//yep image
     }
@@ -105,6 +115,7 @@ $(".answer").click(function () {
     }
     //else if correct, show right ninja, repopulate, etc, etc 
     if (guess === "Andre the Giant") {//correct guess
+        score++;
         nextQuestion = setTimeout(repopulate(set2), 3000);
         $("#image-holder").html(yep);//yep image
     }
@@ -119,6 +130,7 @@ $(".answer").click(function () {
         $("#image-holder").html(nope);
     }
     if (guess === "Novak Djokovic") {//correct guess
+        score++;
         nextQuestion = setTimeout(repopulate(set3), 3000);
         $("#image-holder").html(yep);//yep image
     }
@@ -133,8 +145,21 @@ $(".answer").click(function () {
         $("#image-holder").html(nope);
     }
     if (guess === "8") {//correct guess
+        score++;
         nextQuestion = setTimeout(repopulate(set4), 3000);
         $("#image-holder").html(yep);//yep image
+    }
+    //5
+    if (guess === set4[2] || guess === set4[3] || guess === set4[4]) {//puke
+        gameOver();
+        // nextQuestion = setTimeout(repopulate(set5), 3000);
+        // $("#image-holder").html(nope);
+    }
+    if (guess === "pick this one") {//correct guess
+        score++;
+        gameOver();
+        // nextQuestion = setTimeout(repopulate(set5), 3000);
+        // $("#image-holder").html(yep);//yep image
     }
 
 });
