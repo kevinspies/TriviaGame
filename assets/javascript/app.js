@@ -1,7 +1,7 @@
 var set1 = ["Who played Fezzik in 1987 The Princess Bride?", "Andre the Giant", "Mike Wazowski", "Jennifer Lopez", "Michael Cera"];
 var set2 = ["Which of the following players has a two handed backhand?", "Roger Federer", "Novak Djokovic", "Stan Wawrinka", "Dominic Thiem"];
-var set3 = ["what is 3 + 5?", "5", "1", "8", "boundless creativity"];
-var set4 = ["In what year did coldplay put out their first album?", "the right year", "wrong", "wrong", "wrong"];
+var set3 = ["what is 3 + 5?", "5", "1", "8", "spoon"];
+var set4 = ["In what year did coldplay put out their first album?", "pick this one", "wrong", "also wrong", "circa 1440 A.D."];
 
 var correctAnswers = ["Andre the Giant", "Novak Djokovic"];
 
@@ -9,7 +9,8 @@ var timeLeft = 20;
 var timer = setInterval(tick, 1000);
 var nextQuestion;
 var yep = "<div> id='image-holder'><img src= 'assets/images/check.png' width='400px'></div>";
-var nope = "<div> id='image-holder'><img src= 'assets/images/ex.jfif' width='400px'></div>"
+var nope = "<div> id='image-holder'><img src= 'assets/images/ex.jfif' width='400px'></div>";
+var score = 0;
 
 
 function tick() {
@@ -125,6 +126,15 @@ $(".answer").click(function () {
         nextQuestion = setTimeout(repopulate(set3), 3000);
         $("#image-holder").html(nope);
         console.log("pssssst");
+    }
+    //4
+    if (guess === set3[1] || guess === set3[2] || guess === set3[4]) {//better practice, also i should not talk about good practice right now
+        nextQuestion = setTimeout(repopulate(set4), 3000);//superflous
+        $("#image-holder").html(nope);
+    }
+    if (guess === "8") {//correct guess
+        nextQuestion = setTimeout(repopulate(set4), 3000);
+        $("#image-holder").html(yep);//yep image
     }
 
 });
