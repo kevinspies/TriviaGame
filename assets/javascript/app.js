@@ -22,8 +22,8 @@ function repopulate(anySet) {
     //whenever a new question comes in.. i need to start ticking down again
     timeLeft = 20;
     timer = setInterval(tick, 1000);
-    //remove wrong ninja here at the start of a new question
-    $("#image-holder").html("<img src=");
+    //remove wrong or right sign at the start of a new question
+    $("#image-holder").html("<div id='image-holder'></div>");
 
     $("#question").attr(anySet[0]);
     $("#answer1").text(anySet[1]);
@@ -36,7 +36,7 @@ function outOfTime(specificIndex) {
     if (timeLeft === 0) {
         console.log("whoops! all out of time!");
         //here i could hard check to see which question i'm on by using jquery to check
-        nextQuestion = setTimeout(repopulate(specificIndex), 2000);
+        nextQuestion = setTimeout(repopulate(specificIndex), 3000);
     }//okay i need to be able to see where i am in an array of questions so i can always call out of time
 }//no matter where i am, so this means i need to be able to say repopulate next question
 //do i need a game object then?
@@ -73,28 +73,29 @@ $(".answer").click(function () {
     //or something to do with ID? this is definitely important. 
     //ok.. so i just did not realize how useful jquery was
     var guess = event.target.textContent; //this represents the string of their guess
-    console.log(typeof (words));//string, well that's good.
+    console.log(typeof (guess) + " is the type of guess");//string, well that's good.
 
-    //question 1
+    //question 1 - the first repopulation of the 99th colony centurian 6
     if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
         console.log(guess + " is incorrect!");
-        $("#image-holder").html("<img src=" + "assets/images/nope.png" + " width='400px'>");
-        nextQuestion = setTimeout(repopulate(set1), 2000);
+        $("#image-holder").html("<img src= 'assets/images/nope.jpg' width='400px'>");//wow, this felt good to do properly lol
+        nextQuestion = setTimeout(repopulate(set1), 3000);
     }
     else if (guess === "yellow") {//correct guess
         console.log(guess + " is correct!");
-        $("#image-holder").html("<img src=" + "assets/images/yep.png" + " width='400px'>");//yep image
-        nextQuestion = setTimeout(repopulate(set1), 2000);
+        $("#image-holder").html("<img src=" + "assets/images/yep.jpg" + " width='400px'>");//yep image
+        nextQuestion = setTimeout(repopulate(set1), 3000);
     }
     else if (timeLeft === 0) {
         console.log("whoops! all out of time! and in a proper question 1 logic?!");
-        nextQuestion = setTimeout(repopulate(set1), 2000);
+        $("#image-holder").html("<img src=" + "assets/images/nope.jpg" + " width='400px'>");
+        nextQuestion = setTimeout(repopulate(set1), 3000);
     }
 
     //question 2
     if (guess === "Mike Wazowski" || guess === "Jennifer Lopez" || guess === "Michael Cera") {
         $("#image-holder").html("<img src=" + "assets/images/zapdos.jpg" + " width='400px'>");
-        nextQuestion = setTimeout(repopulate2, 2000);
+        nextQuestion = setTimeout(repopulate(set2), 3000);
     }
     //else if correct, show right ninja, repopulate, etc, etc 
 
