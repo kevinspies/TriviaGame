@@ -78,19 +78,19 @@ $(".answer").click(function () {
     if (guess === "green" || guess === "black" || guess === "white") {//then they guessed wrong
         console.log(guess + " is incorrect!");
         nextQuestion = setTimeout(repopulate(set1), 3000);
-        $("#image-holder").html("<img src= 'assets/images/nope.jpg' width='400px'>");//wow, this felt good to do properly lol
+        $("#image-holder").html("<div> id='image-holder'><img src= 'assets/images/nope.jpg' width='400px'></div>");//wow, this felt good to do properly lol
         console.log(nextQuestion + " is the next question and will appear in 3 seconds!");
     }
     if (guess === "yellow") {//correct guess
         console.log(guess + " is correct!");
-        $("#image-holder").html("<img src= 'assets/images/yep.jpg' width='400px'>");//yep image
         nextQuestion = setTimeout(repopulate(set1), 3000);
+        $("#image-holder").html("<div> id='image-holder'><img src= 'assets/images/yep.jpg' width='400px'></div>");//yep image
     }
     if (timeLeft === 0) {
         console.log("whoops! all out of time");
-        $("#image-holder").html("<img src=" + "assets/images/nope.jpg" + " width='400px'>");//why isn't image showing up?
         nextQuestion = setTimeout(repopulate(set1), 3000);
-        console.log("pssssst");
+        $("#image-holder").html("<div> id='image-holder'><img src= assets/images/nope.jpg' width='400px'></div>");//why isn't image showing up?
+        console.log("pssssst");//because order matters------------------------------------------
     }
 
     //question 2
