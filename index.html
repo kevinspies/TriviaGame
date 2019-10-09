@@ -1,42 +1,40 @@
 <!DOCTYPE html>
-<html>
+
+<html lang="en-us">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>Kevin's Trivia</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>Tantalizingly Tenacious Trivia</title>
+
+    <!-- CSS Reset Sheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+
+    <!-- Out Own CSS Sheet -->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Geo" rel="stylesheet" type="text/css">
 
 </head>
 
 <body>
 
-    <div class="container">
-        <div id="quiz">
-            <h1>Taste the Wrath of my hardcoded Treachurous Trivia Train!</h1>
-            <h3 id="timeremaining">Time Remaining: 20</h3>
-            <h2 id="question">what color is the sky most of the time?</h2>
-            <!--give correct answers a value maybe? that makes it easy to check if it is correct-->
-            <button class="answer" id="answer1" value="1">green</button>
-            <button class="answer" id="answer2">neon</button>
-            <button class="answer" id="answer3">gold</button>
-            <button class="answer" id="answer4">blue</button>
-
-            <!-- <button onclick="changeColor('red');">red</button> -->
-            <!-- in theory in javascript i could change the onclick attribute to certain functions, and
-        just define a bunch of javacsript functions for each correct answer, i.e. is andre?
-        would check to see if -->
+    <div id="wrapper">
+        <h1>Tantalizingly Tenacious Trivia!</h1>
+        <div id="sub-wrapper">
+            <div id="quiz-area">
+                <button id="start">Start</button>
+            </div>
         </div>
     </div>
-    <div id="score" font-family="bold"></div>
-    <div id="image-holder"></div>
-    <input type="submit" style="display: none;" id="newgamebutton"></input>
 
+    <!-- Script -->
+    <script type="text/javascript" src="assets/javascript/app.js"></script>
 
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="assets\javascript\app.js"></script>
 </body>
 
 </html>

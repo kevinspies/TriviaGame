@@ -1,165 +1,184 @@
-var set1 = ["Who played Fezzik in 1987 The Princess Bride?", "Andre the Giant", "Mike Wazowski", "Jennifer Lopez", "Michael Cera"];
-var set2 = ["Which of the following players has a two handed backhand?", "Roger Federer", "Novak Djokovic", "Stan Wawrinka", "Dominic Thiem"];
-var set3 = ["what is 3 + 5?", "5", "1", "8", "spoon"];
-var set4 = ["In what year did coldplay put out their first album?", "pick this one", "wrong", "also wrong", "circa 1440 A.D."];
 
-var correctAnswers = ["Andre the Giant", "Novak Djokovic"];
+var card = $("#quiz-area");
+var countStartNumber = 30;
 
-var timeLeft = 20;
-var timer = setInterval(tick, 1000);
-var nextQuestion;
-var yep = "<div id='image-holder'><img src= 'assets/images/check.png' width='400px'></div>";
-var nope = "<div id='image-holder'><img src= 'assets/images/ex.jfif' width='400px'></div>";
-var score = 0;
+// Question set
+var questions = [{
+  question: "What was the first full length CGI movie?",
+  answers: ["A Bug's Life", "Monsters Inc.", "Toy Story", "The Lion King"],
+  correctAnswer: "Toy Story",
+  image: "assets/images/toystory.gif"
+}, {
+  question: "Which of these is NOT a name of one of the Spice Girls?",
+  answers: ["Sporty Spice", "Fred Spice", "Scary Spice", "Posh Spice"],
+  correctAnswer: "Fred Spice",
+  image: "assets/images/spicegirls.gif"
+}, {
+  question: "Which NBA team won the most titles in the 90s?",
+  answers: ["New York Knicks", "Portland Trailblazers", "Los Angeles Lakers", "Chicago Bulls"],
+  correctAnswer: "Chicago Bulls",
+  image: "assets/images/bulls.gif"
+}, {
+  question: "Which group released the hit song, 'Smells Like Teen Spirit'?",
+  answers: ["Nirvana", "Backstreet Boys", "The Offspring", "No Doubt"],
+  correctAnswer: "Nirvana",
+  image: "assets/images/nirvanabark.gif"
+}, {
+  question: "Which popular Disney movie featured the song, \"Circle of Life\"?",
+  answers: ["Aladdin", "Hercules", "Mulan", "The Lion King"],
+  correctAnswer: "The Lion King",
+  image: "assets/images/lionking.gif"
+}, {
+  question: "Finish this line from the Fresh Prince of Bel-Air theme song: \"I whistled for a cab and when it came near, the license plate said...\"",
+  answers: ["Dice", "Mirror", "Fresh", "Cab"],
+  correctAnswer: "Fresh",
+  image: "assets/images/fresh.gif"
+}, {
+  question: "What was Doug's best friend's name?",
+  answers: ["Skeeter", "Mark", "Zach", "Cody"],
+  correctAnswer: "Skeeter",
+  image: "assets/images/skeeter.gif"
+}, {
+  question: "What was the name of the principal at Bayside High in Saved By The Bell?",
+  answers: ["Mr.Zhou", "Mr.Driggers", "Mr.Belding", "Mr.Page"],
+  correctAnswer: "Mr.Belding",
+  image: "assets/images/belding.gif"
+}];
 
-function gameOver() {
-    $("#score").text("score: " + score + "/5");
-    $("#timeremaining").text("");
-    $("#question").text("");
-    $(".answer").text("");
-    $("#image-holder").html("<div id='image-holder'><img src= 'assets/images/gameover.jpg' width='400px'></div>");
-    // setTimeout(repopulate(set1), 5000); why is the timeout not working?
+// Variable to hold our setInterval
+var timer;
 
-}
+var game = {
 
-function tick() {
-    timeLeft--;
-    $("#timeremaining").text("Time Remaining: " + timeLeft);
-    if (timeLeft === 0) {
-        clearInterval(timer);
-        nextQuestion = setTimeout(repopulate(set3), 3000);
-        $("#image-holder").html(nope);
-        // alert("Too slow!");
-        //next question
-        //this could be problematic, how does tick know which question it is on?
-    }
+  questions: questions,
+  currentQuestion: 0,
+  counter: countStartNumber,
+  correct: 0,
+  incorrect: 0,
 
-}
-function repopulate(anySet) {
-    //whenever a new question comes in.. i need to start ticking down again
-    timeLeft = 20;
-    timer = setInterval(tick, 1000);
-    //remove wrong or right sign at the start of a new question
-    $("#image-holder").html("<div id='image-holder'></div>");
+  countdown: function() {
+    this.counter--;
+    $("#counter-number").text(this.counter);
+    if (this.counter === 0) {
+      console.log("TIME UP");
+      this.timeUp();
+    }
+  },
 
-    $("#question").text(anySet[0]);
-    $("#answer1").text(anySet[1]);
-    $("#answer2").text(anySet[2]);
-    $("#answer3").text(anySet[3]);
-    $("#answer4").text(anySet[4]);
-}
+  loadQuestion: function() {
 
-function outOfTime(specificIndex) {
-    if (timeLeft === 0) {
-        console.log("whoops! all out of time!");
-        //here i could hard check to see which question i'm on by using jquery to check
-        nextQuestion = setTimeout(repopulate(specificIndex), 3000);
-    }//okay i need to be able to see where i am in an array of questions so i can always call out of time
-}//no matter where i am, so this means i need to be able to say repopulate next question
-//do i need a game object then?
+    timer = setInterval(this.countdown.bind(this), 1000);
 
-//i shouldn't need multiple repopulate functions now that i'm passing anySet as a parameter i think..
-// function rePopulate2() {
-//     timeLeft = 20;
-//     timer = setInterval(tick, 1000);
-//     $("#image-holder").html("<img src=");
-//     $("#question").attr(set2[0]);
-//     $("#answer1").text(set2[1]);
-//     $("#answer2").text(set2[2]);
-//     $("#answer3").text(set2[3]);
-//     $("#answer4").text(set2[4]);
-// }
+    card.html("<h2>" + questions[this.currentQuestion].question + "</h2>");
 
-function isCorrect(someAnswer) {
-    if (correctAnswers.includes(someAnswer)) return true;
-    else return false;
-}
+    for (var i = 0; i < questions[this.currentQuestion].answers.length; i++) {
+      card.append("<button class='answer-button' id='button' data-name='" + questions[this.currentQuestion].answers[i]
+      + "'>" + questions[this.currentQuestion].answers[i] + "</button>");
+    }
+  },
 
-$(".answer").click(function () {
-    // console.log(this.value);
-    // var title = $(this).text;
-    // alert(title);
-    clearInterval(timer);
-    //sooo event returns a DOM element... so we use dom methods? and kinda works like this
-    //inside an event
-    //wrong answers
-    // console.log("no way!!");
-    // console.log("i can also get text like this maybe.. let's find out! button text isss... " + $(".button").text() + "w0wz3rzLol0c0pt3r");
-    //no that did not work, is that because jquery ltext() method doesn't work with buttons?
-    //or something to do with ID? this is definitely important. 
-    //ok.. so i just did not realize how useful jquery was
-    var guess = event.target.textContent; //this represents the string of their guess
-    console.log(typeof (guess) + " is the type of guess");//string, well that's good.
+  nextQuestion: function() {
+    this.counter = window.countStartNumber;
+    $("#counter-number").text(this.counter);
+    this.currentQuestion++;
+    this.loadQuestion.bind(this)();
+  },
 
-    //question 1 - the first repopulation of the 99th colony centurian 6
-    if (guess === "green" || guess === "neon" || guess === "gold") {//then they guessed wrong
-        nextQuestion = setTimeout(repopulate(set1), 3000);
-        $("#image-holder").html(nope);//wow, this felt good to do properly lol
-        console.log(nextQuestion + " is the next question and will appear in 3 seconds!");
-    }
-    if (guess === "blue") {//correct guess
-        score++;
-        nextQuestion = setTimeout(repopulate(set1), 3000);
-        $("#image-holder").html(yep);//yep image
-    }
-    if (timeLeft === 0) {
-        nextQuestion = setTimeout(repopulate(set1), 3000);
-        $("#image-holder").html(nope);//why isn't image showing up?
-        console.log("pssssst");//because order matters------------------------------------------
-    }
+  timeUp: function() {
 
-    //question 2
-    if (guess === "Mike Wazowski" || guess === "Jennifer Lopez" || guess === "Michael Cera") {
-        nextQuestion = setTimeout(repopulate(set2), 3000);
-        $("#image-holder").html(nope);
-    }
-    //else if correct, show right ninja, repopulate, etc, etc 
-    if (guess === "Andre the Giant") {//correct guess
-        score++;
-        nextQuestion = setTimeout(repopulate(set2), 3000);
-        $("#image-holder").html(yep);//yep image
-    }
-    if (timeLeft === 0) {
-        nextQuestion = setTimeout(repopulate(set2), 3000);
-        $("#image-holder").html(nope);//why isn't image showing up?
-        console.log("pssssst");//because order matters------------------------------------------
-    }
-    //3
-    if (guess === "Roger Federer" || guess === "Stan Wawrinka" || guess === "Dominic Thiem") {
-        nextQuestion = setTimeout(repopulate(set3), 3000);
-        $("#image-holder").html(nope);
-    }
-    if (guess === "Novak Djokovic") {//correct guess
-        score++;
-        nextQuestion = setTimeout(repopulate(set3), 3000);
-        $("#image-holder").html(yep);//yep image
-    }
-    if (timeLeft === 0) {
-        nextQuestion = setTimeout(repopulate(set3), 3000);
-        $("#image-holder").html(nope);
-        console.log("pssssst");
-    }
-    //4
-    if (guess === set3[1] || guess === set3[2] || guess === set3[4]) {//better practice, also i should not talk about good practice right now
-        nextQuestion = setTimeout(repopulate(set4), 3000);//superflous
-        $("#image-holder").html(nope);
-    }
-    if (guess === "8") {//correct guess
-        score++;
-        nextQuestion = setTimeout(repopulate(set4), 3000);
-        $("#image-holder").html(yep);//yep image
-    }
-    //5
-    if (guess === set4[2] || guess === set4[3] || guess === set4[4]) {//puke
-        gameOver();
-        // nextQuestion = setTimeout(repopulate(set5), 3000);
-        // $("#image-holder").html(nope);
-    }
-    if (guess === "pick this one") {//correct guess
-        score++;
-        gameOver();
-        // nextQuestion = setTimeout(repopulate(set5), 3000);
-        // $("#image-holder").html(yep);//yep image
-    }
+    clearInterval(window.timer);
 
+    $("#counter-number").text(this.counter);
+
+    card.html("<h2>Out of Time!</h2>");
+    card.append("<h3>The Correct Answer was: " + questions[this.currentQuestion].correctAnswer);
+    card.append("<img src='" + questions[this.currentQuestion].image + "' />");
+
+    if (this.currentQuestion === questions.length - 1) {
+      setTimeout(this.results, 3 * 1000);
+    }
+    else {
+      setTimeout(this.nextQuestion, 3 * 1000);
+    }
+  },
+
+  results: function() {
+
+    clearInterval(window.timer);
+
+    card.html("<h2>All done, heres how you did!</h2>");
+
+    $("#counter-number").text(this.counter);
+
+    card.append("<h3>Correct Answers: " + this.correct + "</h3>");
+    card.append("<h3>Incorrect Answers: " + this.incorrect + "</h3>");
+    card.append("<h3>Unanswered: " + (questions.length - (this.incorrect + this.correct)) + "</h3>");
+    card.append("<br><button id='start-over'>Start Over?</button>");
+  },
+
+  clicked: function(e) {
+    clearInterval(window.timer);
+    if ($(e.target).attr("data-name") === questions[this.currentQuestion].correctAnswer) {
+      this.answeredCorrectly();
+    }
+    else {
+      this.answeredIncorrectly();
+    }
+  },
+
+  answeredIncorrectly: function() {
+
+    this.incorrect++;
+
+    clearInterval(window.timer);
+
+    card.html("<h2>Nope!</h2>");
+    card.append("<h3>The Correct Answer was: " + questions[this.currentQuestion].correctAnswer + "</h3>");
+    card.append("<img src='" + questions[this.currentQuestion].image + "' />");
+
+    if (this.currentQuestion === questions.length - 1) {
+      setTimeout(this.results.bind(this), 3 * 1000);
+    }
+    else {
+      setTimeout(this.nextQuestion.bind(this), 3 * 1000);
+    }
+  },
+
+  answeredCorrectly: function() {
+
+    clearInterval(window.timer);
+
+    this.correct++;
+
+    card.html("<h2>Correct!</h2>");
+    card.append("<img src='" + questions[this.currentQuestion].image + "' />");
+
+    if (this.currentQuestion === questions.length - 1) {
+      setTimeout(this.results.bind(this), 3 * 1000);
+    }
+    else {
+      setTimeout(this.nextQuestion.bind(this), 3 * 1000);
+    }
+  },
+
+  reset: function() {
+    this.currentQuestion = 0;
+    this.counter = countStartNumber;
+    this.correct = 0;
+    this.incorrect = 0;
+    this.loadQuestion();
+  }
+};
+
+// CLICK EVENTS
+
+$(document).on("click", "#start-over", game.reset.bind(game));
+
+$(document).on("click", ".answer-button", function(e) {
+  game.clicked.bind(game, e)();
+});
+
+$(document).on("click", "#start", function() {
+  $("#sub-wrapper").prepend("<h2>Time Remaining: <span id='counter-number'>30</span> Seconds</h2>");
+  game.loadQuestion.bind(game)();
 });
